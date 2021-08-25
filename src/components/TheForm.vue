@@ -1,18 +1,22 @@
 <template>
   <form @submit.prevent="submitForm">
-    <div class="form-control">
+    <div
+      class="form-control"
+      :class="{ invalid: userNameValidity === 'invalid' }"
+    >
       <label for="user-name">Your Name</label>
-      <!--  Modifier -->
-      <!-- you can use v-model.trim modifier to delte white spaces   -->
-      <input id="user-name" name="user-name" type="text" v-model="userName" />
+      <!-- we can validate an input when it loses foucus using the @blur event lisenter   -->
+      <input
+        id="user-name"
+        name="user-name"
+        type="text"
+        v-model="userName"
+        @blur="validateInput"
+      />
+      <p v-if="userNameValidity === 'invalid'">please enter a valid name</p>
     </div>
     <div class="form-control">
       <label for="age">Your Age (Years)</label>
-      <!-- becaus the used type in this input is number v-model will 
-      the covert the value of it into an Number type -->
-      <!-- Modifier -->
-      <!-- if the type of an input is text and you want to force convert it to a number
-     use .number modifier "v-model." -->
       <input
         id="age"
         name="age"
@@ -99,7 +103,12 @@
     <!-- singlure check box -->
     <!-- binding v-model with a singular checkbox type input will generate boolean value.  -->
     <div class="form-control">
-      <input type="checkbox" id="confirm-terms" name="confirm-term" v-model="confirm"/>
+      <input
+        type="checkbox"
+        id="confirm-terms"
+        name="confirm-term"
+        v-model="confirm"
+      />
       <label for="confirm-terms">Agree to terms of use?</label>
     </div>
     <div>
@@ -116,7 +125,8 @@ export default {
       referrer: "wom",
       interest: [],
       how: null,
-      confirm:false
+      confirm: false,
+      userNameValidity: "pending",
     };
   },
   methods: {
@@ -127,7 +137,14 @@ export default {
       console.log("referrer : ", this.referrer);
       console.log("interest : ", this.interest);
       console.log("how      : ", this.how);
-      console.log('confirm  :',this.confirm)
+      console.log("confirm  :", this.confirm);
+    },
+    validateInput() {
+      if (this.userName.trim() === "") {
+        this.userNameValidity = "invalid";
+      } else {
+        this.userNameValidity = "valid";
+      }
     },
   },
 };
@@ -144,6 +161,13 @@ form {
 
 .form-control {
   margin: 0.5rem 0;
+}
+
+.form-control.invalid input {
+  border-color: red;
+}
+.form-control.invalid label {
+  color: red;
 }
 
 label {
