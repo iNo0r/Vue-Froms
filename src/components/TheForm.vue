@@ -97,6 +97,7 @@
     </div>
 
     <!-- singlure check box -->
+    <!-- binding v-model with a singular checkbox type input will generate boolean value.  -->
     <div class="form-control">
       <input type="checkbox" id="confirm-terms" name="confirm-term" v-model="confirm"/>
       <label for="confirm-terms">Agree to terms of use?</label>
