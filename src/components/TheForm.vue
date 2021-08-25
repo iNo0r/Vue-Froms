@@ -9,10 +9,10 @@
     <div class="form-control">
       <label for="age">Your Age (Years)</label>
       <!-- becaus the used type in this input is number v-model will 
-      the covert the value of it into an Number type -->
+      the covnert the value of it into an Number type -->
       <!-- Modifier -->
       <!-- if the type of an input is text and you want to force convert it to a number
-     use .number modifier "v-model." -->
+     use .number modifier "v-model.number" -->
       <input
         id="age"
         name="age"
