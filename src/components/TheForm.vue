@@ -5,7 +5,6 @@
       :class="{ invalid: userNameValidity === 'invalid' }"
     >
       <label for="user-name">Your Name</label>
-      <!-- we can validate an input when it loses foucus using the @blur event lisenter   -->
       <input
         id="user-name"
         name="user-name"
@@ -100,8 +99,6 @@
       </div>
     </div>
 
-    <!-- singlure check box -->
-    <!-- binding v-model with a singular checkbox type input will generate boolean value.  -->
     <div class="form-control">
       <input
         type="checkbox"
@@ -111,13 +108,24 @@
       />
       <label for="confirm-terms">Agree to terms of use?</label>
     </div>
+    <div class="form-control">
+      <!-- we can user v-model on a component -->
+      <!-- v-model is a combination of @input & :value  -->
+      <!-- assigning a v-modal to a component vue will handle it by 
+      passing :model-value  @update:modelValue behind the scenes -->
+      <rating-control v-model="rating"></rating-control>
+    </div>
     <div>
       <button type="submit">Save Data</button>
     </div>
   </form>
 </template>
 <script>
+import RatingControl from "./RatingControl.vue";
 export default {
+  components: {
+    RatingControl: RatingControl,
+  },
   data() {
     return {
       userName: "",
@@ -127,6 +135,7 @@ export default {
       how: null,
       confirm: false,
       userNameValidity: "pending",
+      rating: null,
     };
   },
   methods: {
@@ -137,7 +146,8 @@ export default {
       console.log("referrer : ", this.referrer);
       console.log("interest : ", this.interest);
       console.log("how      : ", this.how);
-      console.log("confirm  :", this.confirm);
+      console.log("confirm  : ", this.confirm);
+      console.log("rating   : ", this.rating);
     },
     validateInput() {
       if (this.userName.trim() === "") {
